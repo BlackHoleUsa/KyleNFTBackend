@@ -80,15 +80,13 @@ const handleSearch = catchAsync(async (req, res) => {
 const getAppActivity = catchAsync(async (req, res) => {
   const { page, perPage } = req.query;
 
-  const histories = await historyService.getAllHistoriesPaginated(page, perPage);
-
-  const count = await historyService.getHistoryCount();
+  const histories = await artworkService.getAllArtworksPaginated(page, perPage);
 
   res.status(httpStatus.OK).send({
     status: true,
     message: 'Successfull',
-    data: histories,
-    count,
+    data: histories.artworks,
+    count: histories.count,
   });
 });
 

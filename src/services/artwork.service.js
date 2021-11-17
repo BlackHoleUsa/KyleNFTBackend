@@ -38,19 +38,19 @@ const closeArtworkAuction = async (artworkId) => {
 };
 
 const deleteArtworksByCollection = async (collectionId) => {
-  return await Artwork.deleteMany({ collectionId: collectionId });
+  return await Artwork.deleteMany({ collectionId });
 };
 
 const updateArtworkTokenId = async (artworkId, tokenId) => {
-  return await Artwork.findOneAndUpdate({ _id: artworkId }, { tokenId: tokenId }, { new: true }).lean();
+  return await Artwork.findOneAndUpdate({ _id: artworkId }, { tokenId }, { new: true }).lean();
 };
 
 const updateArtworkcollectionId = async (collectionId, tokenId) => {
-  return await Artwork.findOneAndUpdate({ collectionId: collectionId }, { tokenId: tokenId }, { new: true }).lean();
+  return await Artwork.findOneAndUpdate({ collectionId }, { tokenId }, { new: true }).lean();
 };
 
 const getArtworksByCollection = async (collectionId) => {
-  const result = await Artwork.find({ collectionId: collectionId }).lean();
+  const result = await Artwork.find({ collectionId }).lean();
   return result;
 };
 
@@ -70,22 +70,22 @@ const deleteArtworkById = async (artworkId) => {
 };
 
 const searchArtworkByName = async (keyword, page, perPage, artist, min, max) => {
-  let query = {};
+  const query = {};
   if (keyword) {
-    query['name'] = { $regex: keyword, $options: 'i' };
+    query.name = { $regex: keyword, $options: 'i' };
   }
   if (artist) {
-    query['owner'] = artist;
+    query.owner = artist;
   }
   if (min && max) {
-    query['$and'] = [
+    query.$and = [
       {
-        price: { $gte: parseInt(min) }
+        price: { $gte: parseInt(min) },
       },
       {
-        price: { $lte: parseInt(max) }
-      }
-    ]
+        price: { $lte: parseInt(max) },
+      },
+    ];
   }
 
   return await Artwork.find(query)
@@ -96,6 +96,13 @@ const getAllArtWork = async () => {
   // eslint-disable-next-line prettier/prettier
   const artWorks = await Artwork.find({}).sort({_id:-1}).lean();
   return artWorks;
+};
+const getAllArtworksPaginated = async (page, perPage) => {
+  const artworks = await Artwork.find()
+    .limit(parseInt(perPage))
+    .skip(page * perPage);
+  const count = await Artwork.find().countDocuments();
+  return {artworks : artworks, count : count };  
 };
 module.exports = {
   saveArtwork,
@@ -114,4 +121,5 @@ module.exports = {
   searchArtworkByName,
   getAllArtWork,
   updateArtworkcollectionId,
+  getAllArtworksPaginated,
 };
