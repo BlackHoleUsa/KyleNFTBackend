@@ -15,7 +15,7 @@ const createUser = catchAsync(async (req, res) => {
 const getUsers = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['userName', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  filter.userName = { $regex: filter.userName, $options: 'i' }
+  filter.userName = { $regex: filter.userName, $options: 'i' };
   const result = await userService.queryUsers(filter, options);
   res.send(result);
 });
@@ -55,7 +55,9 @@ const deleteUser = catchAsync(async (req, res) => {
 const followUser = catchAsync(async (req, res) => {
   const { otherUserId } = req.body;
   const { user } = req;
-  if (parseInt(otherUserId) === parseInt(user._id)) {
+  console.log('otherUserId', otherUserId);
+  console.log('user._id', user._id);
+  if (otherUserId === user._id) {
     res.status(httpStatus.BAD_REQUEST).send({
       status: false,
       message: 'otherUserId is equal to UserId',
