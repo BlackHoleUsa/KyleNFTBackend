@@ -99,10 +99,13 @@ const getAllArtWork = async () => {
 };
 const getAllArtworksPaginated = async (page, perPage) => {
   const artworks = await Artwork.find()
+    .populate('creater')
     .limit(parseInt(perPage))
-    .skip(page * perPage);
+    .skip(page * perPage)
+    .lean();
+
   const count = await Artwork.find().countDocuments();
-  return {artworks : artworks, count : count };  
+  return { artworks, count };
 };
 module.exports = {
   saveArtwork,
