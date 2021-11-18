@@ -1,10 +1,12 @@
-// var cron = require('node-cron');
+const cron = require('node-cron');
 const { auctionService } = require('../services');
 const config = require('../config/config');
 const logger = require('../config/logger');
-// cron.schedule('* * * * *', async () => {
-// await auctionService.checkAndCompleteAuctionStatus();
-// });
+
+cron.schedule('*/1 * * * *', async () => {
+  await auctionService.checkAndCompleteAuctionStatus();
+  console.log('in Corn');
+});
 const mongoose = require('mongoose');
 
 mongoose.set('useFindAndModify', false);
