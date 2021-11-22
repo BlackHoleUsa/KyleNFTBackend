@@ -13,6 +13,13 @@ const createArtworkVS = {
   }),
 };
 
+const getAllArtworks = {
+  query: Joi.object().keys({
+    page: Joi.string().optional(),
+    perPage: Joi.string().optional(),
+  }),
+};
+
 const getArtworksVS = {
   query: Joi.object().keys({
     page: Joi.string().required(),
@@ -132,5 +139,6 @@ module.exports = {
   changeAuctionStatusVS,
   deleteArtworkVS,
   getHistoryVS,
-  nftClaimListVS
+  nftClaimListVS,
+  getAllArtworks,
 };

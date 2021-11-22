@@ -192,11 +192,13 @@ const updateTokenId = catchAsync(async (req, res) => {
 
   EVENT.emit('stats-artwork-mint', {
     userId: artwork.owner,
-    type: STATS_UPDATE_TYPE.ownedArts
+    type: STATS_UPDATE_TYPE.ownedArts,
   });
 
   res.status(httpStatus.OK).send({
-    status: true, message: 'token id updated successfully', data: artwork
+    status: true,
+    message: 'token id updated successfully',
+    data: artwork,
   });
 });
 
@@ -260,7 +262,8 @@ const getTimeoutItems = catchAsync(async (req, res) => {
 });
 
 const getAllArtWorks = catchAsync(async (req, res) => {
-  const artWorks = await artworkService.getAllArtWork();
+  const { page, perPage } = req.query;
+  const artWorks = await artworkService.getAllArtworksPaginated(page, perPage);
   res.status(httpStatus.OK).send(artWorks);
 });
 module.exports = {

@@ -107,6 +107,11 @@ const getAllArtworksPaginated = async (page, perPage) => {
   const count = await Artwork.find().countDocuments();
   return { artworks, count };
 };
+
+const getArtWorkCount = async () => {
+  const count = await Artwork.find().countDocuments();
+  return count;
+};
 module.exports = {
   saveArtwork,
   getUserArtworks,
@@ -125,4 +130,5 @@ module.exports = {
   getAllArtWork,
   updateArtworkcollectionId,
   getAllArtworksPaginated,
+  getArtWorkCount,
 };

@@ -15,14 +15,14 @@ const artworkExistsInAuction = async (artworkId) => {
 };
 
 const getOpenAuctions = async (page, perPage, sort, whereQuery) => {
-  const auctions = await Auction.find(whereQuery)
+  const auctions = await Auction.find()
     .sort(sort)
     .populate('artwork owner creater bids')
     .limit(parseInt(perPage))
     .skip(page * perPage)
     .lean();
-
-  return auctions;
+  const count = await Auction.find().countDocuments();
+  return { auctions, count };
 };
 
 const getOpenSales = async (page, perPage, sort, whereQuery) => {
