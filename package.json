@@ -79,7 +79,7 @@
     "swagger-jsdoc": "^6.0.8",
     "swagger-ui-express": "^4.1.6",
     "tipsi-stripe": "^9.1.4",
-    "validator": "^13.0.0",
+    "validator": "^13.7.0",
     "web3": "^1.5.2",
     "winston": "^3.2.1",
     "xss-clean": "^0.1.1"
