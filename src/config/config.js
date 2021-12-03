@@ -82,8 +82,8 @@ module.exports = {
     bucket: envVars.AWS_BUCKET,
   },
   ETH_CONTRACTS: {
-    MINT_NFT_CONTRACT_ADDRESS: '0x97b3EB77c560a8892C7Fcef261DcEEAAd92fA46D',
-    AUCTION_CONTRACT_ADDRESS: '0xe6DC9651D0d848D903E3C0Ee004f19616dbb27c4',
+    MINT_NFT_CONTRACT_ADDRESS: '0x7D134D523b1d5eC5C04EA0f71937Ccc1A1f290a5',
+    AUCTION_CONTRACT_ADDRESS: '0x64a48c9f92AE51659927a1F49852E0EE2AFe26AA',
     MINT_NFT_ABI: [
       {
         "inputs": [
@@ -419,6 +419,12 @@ module.exports = {
             "internalType": "uint256",
             "name": "saleId",
             "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "newOwner_",
+            "type": "address"
           }
         ],
         "name": "saleCompleted",
